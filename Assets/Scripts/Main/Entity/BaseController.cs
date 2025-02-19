@@ -22,6 +22,7 @@ public class BaseController : MonoBehaviour
     
     protected void Awake()
     {
+        Time.timeScale = 1f;
         _rigidbody2D = GetComponent<Rigidbody2D>();
         animationHandler = GetComponent<AnimationHandler>();
         statHandler = GetComponent<StatHandler>();

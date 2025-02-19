@@ -15,4 +15,9 @@ public class StackBtn : MonoBehaviour
     {
         StackGameManager.Instance.uiManager.DeactivePanel();
     }
+
+    public void ReturnMainScene()
+    {
+        SceneManager.LoadScene(0);
+    }
 }

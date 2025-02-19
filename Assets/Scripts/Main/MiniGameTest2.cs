@@ -17,7 +17,6 @@ public class MiniGameTest2 : MonoBehaviour, IInteractableObject
         if (other.CompareTag("Player"))
         {
             Menu.SetActive(true);
-            Menu.GetComponentInChildren<TMP_Text>().text = "Minigame2";
             Debug.Log("인터랙트 활성화");
         }
     }
@@ -25,8 +24,9 @@ public class MiniGameTest2 : MonoBehaviour, IInteractableObject
     {
         if (other.CompareTag("Player"))
         {
-            Menu.SetActive(false);
-                Debug.Log("인터랙트 비활성화");
+            if (Menu != null)
+                Menu.SetActive(false);
+            Debug.Log("인터랙트 비활성화");
         }
     }
 }

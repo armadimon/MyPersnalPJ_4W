@@ -26,8 +26,9 @@ public class MiniGameTest : MonoBehaviour, IInteractableObject
     {
         if (other.CompareTag("Player"))
         {
-            Menu.SetActive(false);
-                Debug.Log("인터랙트 비활성화");
+            if (Menu != null)
+                 Menu.SetActive(false);
+            Debug.Log("인터랙트 비활성화");
         }
     }
     
