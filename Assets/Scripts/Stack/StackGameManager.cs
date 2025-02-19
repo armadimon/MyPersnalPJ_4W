@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class StackGameManager : MonoBehaviour
 {
@@ -21,7 +22,8 @@ public class StackGameManager : MonoBehaviour
     private float lastMoveTime;
     private float moveCooldown = 0.1f;
     private float rotationAngle = 90f;
-    public Text scoreText;
+    
+    public StackUIManager uiManager;
     
     private int score = 0;
     
@@ -52,7 +54,6 @@ public class StackGameManager : MonoBehaviour
         HandleMovement();
         HandleRotation();
         HandleFall();
-        HandleHoldRelease();
     }
 
     private void HandleMovement()
@@ -73,7 +74,7 @@ public class StackGameManager : MonoBehaviour
 
     private void HandleRotation()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             currentBlock.Rotate(Vector3.forward, -rotationAngle);
         }
@@ -89,23 +90,37 @@ public class StackGameManager : MonoBehaviour
 
         currentBlock.position += Vector3.down * speed * Time.deltaTime;
     }
-
-    private void HandleHoldRelease()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            currentRigidbody.gravityScale = 1f;
-            Block curBlock = currentBlock.GetComponent<Block>();
-            curBlock.SetIsLanded(true);
-            currentBlock = null;
-            Invoke(nameof(SpawnNewBlock), 0.5f);
-        }
-    }
     
     public void BlockLanded()
     {
+        score++;
+        uiManager.UpdateScore(score, TextType.Score);
         currentRigidbody.gravityScale = 1f;
         currentBlock = null;
         Invoke(nameof(SpawnNewBlock), 0.2f);
+    }
+
+    public void GameOver()
+    {
+        int maxScore = PlayerPrefs.GetInt("StackMaxScore", 0);
+        if (maxScore < score)
+        {
+            maxScore = score;
+            PlayerPrefs.SetInt("StackMaxScore", score);
+        }
+        
+        uiManager.UpdateScore(maxScore, TextType.MaxScore);
+        uiManager.ActiveEndPannel();
+        Time.timeScale = 0f;
+    }
+    
+
+
+    public void StartGame()
+    {
+        currentBlock = null;
+        currentRigidbody = null;
+        // DontDestroyOnLoad(this);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

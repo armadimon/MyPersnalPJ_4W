@@ -5,6 +5,10 @@ using UnityEngine;
 public class Block : MonoBehaviour
 {
     private bool isLanded = false;
+    public bool IsLanded { get { return isLanded; } set { isLanded = value; } }
+    
+    private bool isFalling = false;
+    public bool IsFalling { get { return isFalling; } set { isFalling = value; } }
     
 
     public void SetIsLanded(bool input)
@@ -14,10 +18,20 @@ public class Block : MonoBehaviour
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log(collision.gameObject.name);
         if (isLanded)
             return;
         isLanded = true;
 
         StackGameManager.Instance.BlockLanded();
+    }
+    
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        Debug.Log(isLanded.ToString() + isFalling.ToString());
+        if (isLanded && !isFalling)
+        {
+            StackGameManager.Instance.GameOver();
+        }
     }
 }
