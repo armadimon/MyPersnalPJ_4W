@@ -7,7 +7,7 @@ public class UIManager : MonoBehaviour
 {
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI restartText;
-    // Start is called before the first frame update
+    // Start is called before the first frame update    
     void Start()
     {
         if (restartText == null)
