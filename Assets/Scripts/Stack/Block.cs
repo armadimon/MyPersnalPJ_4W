@@ -18,7 +18,6 @@ public class Block : MonoBehaviour
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(collision.gameObject.name);
         if (isLanded)
             return;
         isLanded = true;
@@ -28,7 +27,6 @@ public class Block : MonoBehaviour
     
     private void OnTriggerStay2D(Collider2D collision)
     {
-        Debug.Log(isLanded.ToString() + isFalling.ToString());
         if (isLanded && !isFalling)
         {
             StackGameManager.Instance.GameOver();

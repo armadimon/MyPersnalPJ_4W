@@ -8,7 +8,7 @@ public class MiniGameBtn : MonoBehaviour
     public GameObject miniGameMenu;
     public void EnterMiniGame(string sceneName)
     {
-        SceneManager.LoadScene(sceneName);
+        GameManager.Instance.LoadScene(sceneName);
     }
 
     public void ExitMiniGame()

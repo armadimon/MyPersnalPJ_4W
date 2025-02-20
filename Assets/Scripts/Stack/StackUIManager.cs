@@ -15,6 +15,7 @@ public class StackUIManager : MonoBehaviour
         
     public Text scoreText;
     public Text maxScoreText;
+    public Text endScoreText;
     // public Text countdownText;
     public GameObject endPanel;
     public GameObject fadeoutPanel;
@@ -29,7 +30,7 @@ public class StackUIManager : MonoBehaviour
     public void DeactivePanel()
     {
         Time.timeScale = 1f;
-        StartCountdown();
+        fadeoutPanel.SetActive(false);
     }
     private void StartCountdown()
     {
@@ -51,7 +52,10 @@ public class StackUIManager : MonoBehaviour
         if (type == TextType.MaxScore)
             maxScoreText.text = score.ToString();
         else if (type == TextType.Score)
+        {
             scoreText.text = score.ToString();
+            endScoreText.text = score.ToString();
+        }
     }
 
     public void ActiveEndPannel()

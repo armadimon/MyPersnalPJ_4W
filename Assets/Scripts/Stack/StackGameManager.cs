@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class StackGameManager : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class StackGameManager : MonoBehaviour
     private float moveCooldown = 0.1f;
     private float rotationAngle = 90f;
     
+    public StackScoreSystem scoreSystem;
     public StackUIManager uiManager;
     
     private int score = 0;
@@ -34,12 +36,15 @@ public class StackGameManager : MonoBehaviour
     }
     void Start()
     {
+        ScoreManager.Instance.SetScoreSystem(scoreSystem);
+        ScoreManager.Instance.LoadScores("Stack");
+        ScoreManager.Instance.InitializeScore();
+        ScoreManager.Instance.SaveScores("Stack");
         SpawnNewBlock();
     }
 
     public void SpawnNewBlock()
     {
-        // 랜덤한 블록 선택
         int randomIndex = Random.Range(0, blockPrefabs.Length);
         currentBlock = Instantiate(blockPrefabs[randomIndex], blockHolder);
 
@@ -102,25 +107,26 @@ public class StackGameManager : MonoBehaviour
 
     public void GameOver()
     {
-        int maxScore = PlayerPrefs.GetInt("StackMaxScore", 0);
+        int maxScore = ScoreManager.Instance.GetScore("StackMaxScore");
         if (maxScore < score)
         {
+            Debug.Log("Game Over");
             maxScore = score;
-            PlayerPrefs.SetInt("StackMaxScore", score);
+            ScoreManager.Instance.SetScore("StackMaxScore", maxScore);
+            // PlayerPrefs.SetInt("StackMaxScore", score);score
         }
-        
+        // 스코어 업데이트
+        ScoreManager.Instance.SetScore("StackScore",score);
         uiManager.UpdateScore(maxScore, TextType.MaxScore);
         uiManager.ActiveEndPannel();
+        ScoreManager.Instance.SaveScores("Stack");
         Time.timeScale = 0f;
     }
     
-
-
     public void StartGame()
     {
         currentBlock = null;
         currentRigidbody = null;
-        // DontDestroyOnLoad(this);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
