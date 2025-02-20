@@ -18,7 +18,6 @@ public class BaseController : MonoBehaviour
 
     protected AnimationHandler animationHandler;
     protected StatHandler statHandler;
-    private float timeSinceLastAttack = float.MaxValue;
     
     protected void Awake()
     {
