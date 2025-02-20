@@ -4,22 +4,24 @@ using UnityEngine;
 
 public class PlayerController : BaseController
 {
+    [SerializeField] private AnimatorOverrideController[] characterOverrides;
+    private Animator animator;
+    private int currentCharacterIndex = 0;
     private Camera _camera;
     private LayerMask _targetLayer;
-    /*
-    private GameManager _gameManager;
 
-    public void Init(GameManager gameManager)
+
+    public void ChangeCharacter()
     {
-        _gameManager = gameManager;
-        _camera = Camera.main;
+        currentCharacterIndex = (currentCharacterIndex + 1) % characterOverrides.Length;
+        animator.runtimeAnimatorController = characterOverrides[currentCharacterIndex];
     }
-    */
-
+    
     protected override void Start()
     {
         base.Start();
         _camera = Camera.main;
+        animator = GetComponentInChildren<Animator>();
     }
     
     protected override void HandleAction()
@@ -33,6 +35,11 @@ public class PlayerController : BaseController
         Vector2 worldPos = _camera.ScreenToWorldPoint(mousePos); //마우스 해상도 좌표를 월드 좌표로
         lookDirection = (worldPos - (Vector2)transform.position);
 
+        if (Input.GetKey(KeyCode.Z))
+        {
+            ChangeCharacter();
+        }
+        
         if (lookDirection.magnitude < 0.9f)
         {
             lookDirection = Vector2.zero;

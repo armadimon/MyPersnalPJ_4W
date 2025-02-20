@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: DwarfAnimator
+  m_Controller: {fileID: 9100000, guid: 40dca1abce7ea44468c4112169b82ea3, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: e86b3933f2279a341a209e6ae767b154, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 0f9417a14e6c1424696ad7c5d0356cbb, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 7f283a417a1804443864fbdb5aaf809f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: d617321401028c94cb8e43eae10e4879, type: 2}

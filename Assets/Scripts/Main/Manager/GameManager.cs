@@ -10,8 +10,8 @@ public class GameManager : MonoBehaviour
     private MainUIManager mainUI;
     public string LastScene { get; private set; } = "";
     public bool sceneLoaded = false;
-    
     public static GameManager Instance;
+    
     private void Awake()
     {
         if (Instance == null)
