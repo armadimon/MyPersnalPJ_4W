@@ -42,10 +42,8 @@ public class LeaderBoardSystem : MonoBehaviour, IScoreSystem
 
     public void SetScoreToLeaderboard()
     {
-        Debug.Log(scores["StackMaxScore"]);
         if (scores.ContainsKey("StackMaxScore"))
         {
-            Debug.Log(scores["StackMaxScore"]);
             stackScoreText.text = scores["StackMaxScore"].ToString();
         }
     }

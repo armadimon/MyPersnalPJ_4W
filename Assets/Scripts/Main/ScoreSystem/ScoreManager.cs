@@ -66,7 +66,6 @@ public class ScoreManager : MonoBehaviour
             var loadedScores = JsonConvert.DeserializeObject<Dictionary<string, int>>(json);
             foreach (var kvp in loadedScores)
             {
-                Debug.Log(kvp.Key + " : " + kvp.Value);
                 scoreSystem?.SetScore(kvp.Key, kvp.Value);
             }
         }

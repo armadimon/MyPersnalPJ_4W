@@ -17,7 +17,6 @@ public class MiniGameTest2 : MonoBehaviour, IInteractableObject
         if (other.CompareTag("Player"))
         {
             Menu.SetActive(true);
-            Debug.Log("인터랙트 활성화");
         }
     }
     void OnTriggerExit2D(Collider2D other)
@@ -26,7 +25,6 @@ public class MiniGameTest2 : MonoBehaviour, IInteractableObject
         {
             if (Menu != null)
                 Menu.SetActive(false);
-            Debug.Log("인터랙트 비활성화");
         }
     }
 }
